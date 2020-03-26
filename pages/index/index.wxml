@@ -1,0 +1,112 @@
+<!-- index.wxml -->
+<view class="weather-app" hidden="{{show}}" style="opacity:0.5">
+<!--天气顶部大图区-->
+  <view class="header">
+    <view class="add" bindtap="add">
+      <image src="image/location/location-arrow.svg"></image>
+      <text class="city">{{location}}</text>
+    </view>
+    <view class="temperature">
+      {{localTemperature}}
+      <span>˚</span>
+    </view>
+    <text class="summary">{{summary}}</text>
+  </view>
+  <!--小时播报 -->
+  <view class="scroll">
+    <scroll-view scroll-x="true">
+      <view class="scroll-x">
+        <view wx:for-items="{{hourly}}" wx:key="name" class="item">
+          <view class="item-hd">{{item.time}}</view>
+          <image class="img" src="{{ item.condCode }}"></image>
+          <text class="item-bd">{{item.tmp}}˚</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="body">
+    <!-- 未来五天天气预爆 -->
+    <view class="day">
+      <view class="item" wx:for="{{days}}" wx:key="time">
+        <text class="time">{{item.time}}</text>
+        <view class="icon">
+          <image class="img" src="{{ item.icon }}"></image>
+          <text class="text">{{item.detail}}</text>
+        </view>
+        <view class="temperature">
+          <text>{{item.maxTemperature}}˚</text>
+          <text>{{item.minTemperature}}˚</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 生活指数 -->
+    <view class="suggestion">
+      <view class="title">生活指数</view>
+      <view class="list">
+        <view class="item" wx:for="{{suggestion}}" wx:key="i">
+          <view class="wrap">
+            <view class="icon">
+              <image src="{{ suggestionIcon[item.type] }}"></image>
+            </view>
+            <text class="status">{{item.brf}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 详情 -->
+    <view class="details">
+      <view class="title">详情</view>
+      <view class="list">
+        <view class="item">
+          <view class="wrap">
+            <view class="column-l">
+              <view class="hd">风</view>
+              <view class="bd">{{detail.wind_spd}} m/s</view>
+            </view>
+            <view class="column-r">
+              <image class="icon" src="{{detailIcon.windy}}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="item">
+          <view class="wrap">
+            <view class="column-l">
+              <view class="hd">体感温度</view>
+              <view class="bd">{{detail.tmp}}˚</view>
+            </view>
+            <view class="column-r">
+              <image class="icon" src="{{detailIcon.temperature}}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="item">
+          <view class="wrap">
+            <view class="column-l">
+              <view class="hd">相对湿度</view>
+              <view class="bd">{{detail.hum}}%</view>
+            </view>
+            <view class="column-r">
+              <image class="icon" src="{{detailIcon.humidity}}"></image>
+            </view>
+          </view>
+        </view>
+        <view class="item">
+          <view class="wrap">
+            <view class="column-l">
+              <view class="hd">气压</view>
+              <view class="bd">{{detail.pres}} Pa</view>
+            </view>
+            <view class="column-r">
+              <image class="icon" src="{{detailIcon.barometer}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="footer">杰仔出品，必属精品</view>
+</view>
+<view hidden="{{!show}}" class="loding">
+  <image src="./image/cloud.svg"></image>
+</view>
